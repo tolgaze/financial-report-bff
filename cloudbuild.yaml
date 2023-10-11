@@ -7,8 +7,6 @@ steps:
         "gcr.io/$PROJECT_ID/financial-report-bff:$BRANCH_NAME",
         ".",
       ]
-    options:
-      logging: CLOUD_LOGGING_ONLY
   - name: "gcr.io/cloud-builders/gcloud:latest"
     args:
       [
@@ -20,3 +18,5 @@ steps:
       ]
 images:
   - "gcr.io/$PROJECT_ID/financial-report-bff:latest"
+options:
+  logging: CLOUD_LOGGING_ONLY
