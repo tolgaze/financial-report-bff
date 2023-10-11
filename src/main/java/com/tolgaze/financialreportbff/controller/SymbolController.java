@@ -13,18 +13,19 @@ import com.tolgaze.financialreportbff.model.SymbolList;
 @RestController
 public class SymbolController {
 
-  @Autowired
-  private Firestore firestore;
+  // @Autowired
+  // private Firestore firestore;
 
-  @GetMapping("/get")
-  SymbolList testMethod() throws InterruptedException, ExecutionException {
-    DocumentSnapshot doc = firestore.collection("daily-symbol-prices").document("CRYPTO").get().get();
+  @GetMapping("/")
+  String testMethod() throws InterruptedException, ExecutionException {
+    return "hello world!";
+    // DocumentSnapshot doc = firestore.collection("daily-symbol-prices").document("CRYPTO").get().get();
 
-    SymbolList test = doc.toObject(SymbolList.class);
-    if(doc.exists()) {
-      return test;
-    }
-    return null;
+    // SymbolList test = doc.toObject(SymbolList.class);
+    // if(doc.exists()) {
+    //   return test;
+    // }
+    // return null;
   }
   
 }

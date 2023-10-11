@@ -11,11 +11,11 @@ import com.google.cloud.firestore.FirestoreOptions;
 @Configuration
 public class FirestoreConfig {
 
-  @Bean
-  Firestore getDb() throws IOException{
-    var options = FirestoreOptions.newBuilder().build();
+  // @Bean
+  // Firestore getDb() throws IOException{
+  //   var options = FirestoreOptions.newBuilder().build();
 
-		return options.getService();
-  }
+	// 	return options.getService();
+  // }
   
 }
