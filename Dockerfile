@@ -1,4 +1,4 @@
 FROM amazoncorretto:21-alpine-jdk
-VOLUME /tmp
-COPY target/*.jar app.jar
+WORKDIR /app
+COPY target/*.jar /app/app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
