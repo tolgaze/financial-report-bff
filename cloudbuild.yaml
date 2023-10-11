@@ -1,13 +1,13 @@
 steps:
-  - name: "maven install"
+  - name: "maven"
     entrypoint: mvn
     args: ["clean", "install", "-DskipTests=true"]
 
-  - name: "build docker image"
+  - name: "build"
     args:
       ["build", "-t", "gcr.io/$PROJECT_ID/financial-report-bff:$latest", "."]
 
-  - name: "push docker image"
+  - name: "push"
     args: ["push", "gcr.io/$PROJECT_ID/financial-report-bff:$latest"]
 
   - name: "deploy"
