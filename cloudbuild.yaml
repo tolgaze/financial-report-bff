@@ -1,23 +1,31 @@
 steps:
-  - name: "maven"
+  - id: Build project
+    name: maven:3-jdk-17
     entrypoint: mvn
     args: ["clean", "install", "-DskipTests=true"]
 
-  - name: "build"
+  - id: Build docker image
+    name: "gcr.io/cloud-builders/docker"
     args:
       ["build", "-t", "gcr.io/$PROJECT_ID/financial-report-bff:$latest", "."]
 
-  - name: "push"
+  - id: Push docker image
+    name: "gcr.io/cloud-builders/docker"
     args: ["push", "gcr.io/$PROJECT_ID/financial-report-bff:$latest"]
 
-  - name: "deploy"
+  - id: "deploy"
+    name: "gcr.io/cloud-builders/gcloud"
     args:
       [
-        "app",
+        "run",
         "deploy",
         "financial-report-bff",
         "--image",
         "gcr.io/$PROJECT_ID/financial-report-bff:latest",
+        "--region",
+        "europe-west1",
+        "--platform",
+        "managed",
       ]
 images:
   - "gcr.io/$PROJECT_ID/financial-report-bff:latest"
