@@ -1,13 +1,16 @@
 steps:
-  - name: "gcr.io/cloud-builders/docker:latest"
+  - name: "maven install"
+    entrypoint: mvn
+    args: ["clean", "install", "-DskipTests=true"]
+
+  - name: "build docker image"
     args:
-      [
-        "build",
-        "-t",
-        "gcr.io/$PROJECT_ID/financial-report-bff:$BRANCH_NAME",
-        ".",
-      ]
-  - name: "gcr.io/cloud-builders/gcloud:latest"
+      ["build", "-t", "gcr.io/$PROJECT_ID/financial-report-bff:$latest", "."]
+
+  - name: "push docker image"
+    args: ["push", "gcr.io/$PROJECT_ID/financial-report-bff:$latest"]
+
+  - name: "deploy"
     args:
       [
         "app",
