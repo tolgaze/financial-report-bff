@@ -7,23 +7,20 @@ import org.springframework.context.annotation.Configuration;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.Firestore;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
-import com.google.firebase.cloud.FirestoreClient;
+import com.google.cloud.firestore.FirestoreOptions;
 
 @Configuration
 public class FirestoreConfig {
 
   @Bean
   Firestore firestore() throws IOException{
-    GoogleCredentials credentials = GoogleCredentials.getApplicationDefault();
-    FirebaseOptions options = FirebaseOptions.builder()
-      .setCredentials(credentials)
+    FirestoreOptions firestoreOptions = FirestoreOptions.getDefaultInstance()
+      .toBuilder()
       .setProjectId("ageless-thought-400117")
+      .setCredentials(GoogleCredentials.getApplicationDefault())
       .build();
-    FirebaseApp.initializeApp(options);
 
-		return FirestoreClient.getFirestore();
+    return firestoreOptions.getService();
   }
   
 }
