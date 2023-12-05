@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tolgaze.financialreportbff.model.entity.Market;
 import com.tolgaze.financialreportbff.service.market.MarketService;
 
-import jakarta.servlet.http.HttpServletResponse;
-
 @RestController
 public class MarketController {
   private final MarketService marketService;
@@ -22,9 +20,8 @@ public class MarketController {
   }
 
   @GetMapping("/")
-  ResponseEntity<List<Market>> testMethod(HttpServletResponse response) throws InterruptedException, ExecutionException {
+  ResponseEntity<List<Market>> testMethod() throws InterruptedException, ExecutionException {
     List<Market> markets = marketService.getAllMarkets();
-    response.setHeader("Access-Control-Allow-Origin", "*");
     
     return new ResponseEntity<>(markets, HttpStatus.OK);
   }
