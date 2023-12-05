@@ -1,26 +1,23 @@
 package com.tolgaze.financialreportbff.config;
 
-import java.util.Arrays;
+import java.io.IOException;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+
+import jakarta.servlet.Filter;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
+import jakarta.servlet.ServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
-public class CorsConfig {
+public class CorsConfig implements Filter {
   
-	@Bean
-	public CorsFilter corsFilter() {
-		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		final CorsConfiguration config = new CorsConfiguration();
-
-		config.setAllowCredentials(true);
-		config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-		config.setAllowedOriginPatterns(Arrays.asList("*"));
-		source.registerCorsConfiguration("/**", config);
-
-		return new CorsFilter(source);
-	}
+  @Override
+  public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
+    HttpServletResponse response = (HttpServletResponse) res;
+    response.setHeader("Access-Control-Allow-Origin", "*");
+    chain.doFilter(req, res);
+  }
 }
