@@ -12,5 +12,6 @@ import lombok.Setter;
 public class Market {
   @Getter @Setter private String date;
   @Getter @Setter private String currency;
+  @Getter @Setter private String group;
   @Getter @Setter private ArrayList<Symbol> symbols;
 }
