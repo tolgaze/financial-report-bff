@@ -1,7 +1,9 @@
-package com.tolgaze.financialreportbff.config;
+package com.tolgaze.financialreportbff.config.interceptor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
@@ -9,7 +11,10 @@ import com.google.firebase.auth.FirebaseToken;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class FirebaseTokenInterceptor implements HandlerInterceptor {
+public class AuthorizationInterceptor implements HandlerInterceptor {
+
+  @Autowired
+  private FirebaseApp firebaseApp;
 
   @Override
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -17,7 +22,7 @@ public class FirebaseTokenInterceptor implements HandlerInterceptor {
     
     if (idToken != null) {
       try {
-        FirebaseToken decodedToken = FirebaseAuth.getInstance().verifyIdToken(idToken);
+        FirebaseToken decodedToken = FirebaseAuth.getInstance(firebaseApp).verifyIdToken(idToken);
         // Perform actions based on the decodedToken (e.g., extracting user information)
         // If token verification is successful, you can proceed with the request
         return true;

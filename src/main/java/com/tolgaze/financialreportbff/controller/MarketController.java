@@ -20,7 +20,7 @@ public class MarketController {
   }
 
   @GetMapping("/")
-  ResponseEntity<List<Market>> testMethod() throws InterruptedException, ExecutionException {
+  ResponseEntity<List<Market>> getAllMarkets() throws InterruptedException, ExecutionException {
     List<Market> markets = marketService.getAllMarkets();
     
     return new ResponseEntity<>(markets, HttpStatus.OK);
