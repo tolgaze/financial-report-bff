@@ -23,8 +23,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
     if (idToken != null) {
       try {
         FirebaseToken decodedToken = FirebaseAuth.getInstance(firebaseApp).verifyIdToken(idToken);
-        // Perform actions based on the decodedToken (e.g., extracting user information)
-        // If token verification is successful, you can proceed with the request
+        request.setAttribute("userEmail", decodedToken.getEmail()); 
         return true;
       } catch (FirebaseAuthException e) {
           // Token verification failed
